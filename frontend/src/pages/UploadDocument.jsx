@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { Upload, CheckCircle, AlertCircle, FileText, ArrowRight, Sparkles } from 'lucide-react';
 import { useResumeStore } from '../store';
+import { useNavigate } from 'react-router-dom';
 
-export function UploadDocument({ isDark, onUploadSuccess }) {
+export function UploadDocument({ isDark }) {
   const [dragActive, setDragActive] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const { uploadResume, isLoading, error, resume } = useResumeStore();
+  const navigate = useNavigate();
 
   const handleDrag = (e) => {
     e.preventDefault();
@@ -30,6 +32,10 @@ export function UploadDocument({ isDark, onUploadSuccess }) {
     }
   };
 
+  const handleSuccess = () => {
+    navigate('/analysis');
+  };
+
   const handleFile = async (file) => {
     const validTypes = ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
     
@@ -43,7 +49,7 @@ export function UploadDocument({ isDark, onUploadSuccess }) {
     try {
       await uploadResume(file);
       setTimeout(() => {
-        onUploadSuccess();
+        handleSuccess();
       }, 1500);
     } catch (err) {
       console.error('Upload failed:', err);
@@ -221,7 +227,7 @@ export function UploadDocument({ isDark, onUploadSuccess }) {
                 Skills: {resume.skills?.length || 0}
               </p>
               <button
-                onClick={() => onUploadSuccess()}
+                onClick={handleSuccess}
                 className={`mt-4 px-6 py-2 rounded-lg font-medium inline-flex items-center space-x-2 bg-green-600 hover:bg-green-700 text-white transition-all text-sm sm:text-base`}
               >
                 <span>View Analysis</span>

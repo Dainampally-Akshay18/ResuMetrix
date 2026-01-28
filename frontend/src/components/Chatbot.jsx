@@ -2,6 +2,12 @@ import { useState, useRef, useEffect } from 'react';
 import { Send, AlertCircle, Loader, MessageCircle, X } from 'lucide-react';
 import { useChatbotStore } from '../store';
 
+const SUGGESTED_QUESTIONS = [
+  "How can I improve my resume summary?",
+  "What skills should I highlight for a software job?",
+  "Is my resume ATS-friendly?"
+];
+
 export function Chatbot({ isDark }) {
   const { messages, sendMessage, isLoading, error, clearMessages } = useChatbotStore();
   const [inputMessage, setInputMessage] = useState('');
@@ -21,14 +27,20 @@ export function Chatbot({ isDark }) {
 
   const handleSendMessage = async (e) => {
     e.preventDefault();
-    
     if (!inputMessage.trim()) return;
-
     const message = inputMessage;
     setInputMessage('');
-
     try {
       await sendMessage(message);
+    } catch (error) {
+      console.error('Failed to send message:', error);
+    }
+  };
+
+  const handleSuggested = async (q) => {
+    setInputMessage('');
+    try {
+      await sendMessage(q);
     } catch (error) {
       console.error('Failed to send message:', error);
     }
@@ -96,13 +108,29 @@ export function Chatbot({ isDark }) {
           msOverflowStyle: 'scrollbar',
         }}
       >
-        
         {messages.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full text-center py-6 sm:py-8">
             <div className="text-4xl sm:text-5xl mb-3 sm:mb-4 opacity-40">💬</div>
             <p className={`text-xs sm:text-sm md:text-base px-2 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
               Ask questions about your resume
             </p>
+            <div className="mt-4 flex flex-col gap-2 w-full max-w-xs">
+              {SUGGESTED_QUESTIONS.map((q, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  onClick={() => handleSuggested(q)}
+                  className={`w-full px-3 py-2 rounded-lg text-xs sm:text-sm text-left transition-all border ${
+                    isDark
+                      ? 'bg-gray-700 text-gray-100 border-gray-600 hover:bg-blue-900/40'
+                      : 'bg-white text-gray-800 border-gray-200 hover:bg-blue-50'
+                  }`}
+                  aria-label={`Ask: ${q}`}
+                >
+                  {q}
+                </button>
+              ))}
+            </div>
           </div>
         ) : (
           <>
