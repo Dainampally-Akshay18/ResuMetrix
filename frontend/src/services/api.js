@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const API_BASE_URL = env.VITE_API_URL
+const API_BASE_URL = '/api'
+
 
 // Create axios instance
 const apiClient = axios.create({
