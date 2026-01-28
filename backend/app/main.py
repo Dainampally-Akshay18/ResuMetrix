@@ -2,9 +2,13 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .routes import document, chatbot, analysis, scoring
 
-app = FastAPI(title="ResuMetrix API", version="1.0.0")
+app = FastAPI(
+    title="ResuMetrix API",
+    version="1.0.0",
+    description="AI-powered resume analyzer with ATS scoring and intelligent chatbot"
+)
 
-# CORS middleware
+# CORS middleware for frontend
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173", "http://localhost:3000"],
@@ -21,4 +25,18 @@ app.include_router(router=chatbot.chatbot_router, prefix="/chatbot", tags=["chat
 
 @app.get("/")
 async def read_root():
-    return {"message": "ResuMetrix API is running", "version": "1.0.0"}
+    return {
+        "message": "ResuMetrix API is running",
+        "version": "1.0.0",
+        "endpoints": {
+            "documents": "/documents",
+            "scoring": "/scoring",
+            "analysis": "/analysis",
+            "chatbot": "/chatbot",
+            "docs": "/docs"
+        }
+    }
+
+@app.get("/health")
+async def health_check():
+    return {"status": "healthy"}
