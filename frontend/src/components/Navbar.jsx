@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { Sun, Moon, Menu, X, Zap, ChevronDown } from 'lucide-react';
+import { Sun, Moon, Menu, X, Zap } from 'lucide-react';
 
 export function Navbar({ isDark, setIsDark }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleDarkMode = () => {
     setIsDark(!isDark);
@@ -50,7 +49,7 @@ export function Navbar({ isDark, setIsDark }) {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-1">
             <a
-              href="#"
+              href="/"
               className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-sm sm:text-base font-semibold transition-all duration-300 hover:scale-105 ${
                 isDark
                   ? 'text-slate-300 hover:text-white hover:bg-slate-800/50'
@@ -60,59 +59,14 @@ export function Navbar({ isDark, setIsDark }) {
               Home
             </a>
             <a
-              href="#"
+              href="/about"
               className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-sm sm:text-base font-semibold transition-all duration-300 hover:scale-105 ${
                 isDark
                   ? 'text-slate-300 hover:text-white hover:bg-slate-800/50'
                   : 'text-slate-700 hover:text-slate-900 hover:bg-white/80'
               }`}
             >
-              Features
-            </a>
-            <div className="relative">
-              <button
-                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-sm sm:text-base font-semibold transition-all duration-300 hover:scale-105 flex items-center gap-1 ${
-                  isDark
-                    ? 'text-slate-300 hover:text-white hover:bg-slate-800/50'
-                    : 'text-slate-700 hover:text-slate-900 hover:bg-white/80'
-                }`}
-                aria-label="Toggle resources menu"
-              >
-                <span>Resources</span>
-                <ChevronDown size={16} className={`transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
-              </button>
-              {isDropdownOpen && (
-                <div className={`absolute top-full left-0 mt-2 w-48 rounded-xl shadow-2xl glass-effect animate-fade-in z-50 ${
-                  isDark ? 'glass-effect-dark' : 'glass-effect-light'
-                }`}>
-                  <a href="#" className={`block px-4 py-3 text-sm sm:text-base hover:bg-indigo-500/10 transition-colors ${
-                    isDark ? 'text-slate-300' : 'text-slate-700'
-                  }`}>
-                    Blog
-                  </a>
-                  <a href="#" className={`block px-4 py-3 text-sm sm:text-base hover:bg-indigo-500/10 transition-colors ${
-                    isDark ? 'text-slate-300' : 'text-slate-700'
-                  }`}>
-                    Documentation
-                  </a>
-                  <a href="#" className={`block px-4 py-3 text-sm sm:text-base hover:bg-indigo-500/10 transition-colors ${
-                    isDark ? 'text-slate-300' : 'text-slate-700'
-                  }`}>
-                    API
-                  </a>
-                </div>
-              )}
-            </div>
-            <a
-              href="#"
-              className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-sm sm:text-base font-semibold transition-all duration-300 hover:scale-105 ${
-                isDark
-                  ? 'text-slate-300 hover:text-white hover:bg-slate-800/50'
-                  : 'text-slate-700 hover:text-slate-900 hover:bg-white/80'
-              }`}
-            >
-              Pricing
+              About Developer
             </a>
           </div>
 
@@ -136,15 +90,7 @@ export function Navbar({ isDark, setIsDark }) {
             </button>
 
             {/* CTA Button */}
-            <button className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-xl text-sm sm:text-base font-semibold transition-all duration-300 hover:scale-105 focus-ring ${
-              isDark
-                ? 'bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white shadow-lg shadow-indigo-500/25'
-                : 'bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white shadow-lg shadow-indigo-500/25'
-            }}`}
-              aria-label="Get started with resume analysis"
-            >
-              Get Started
-            </button>
+            
 
             {/* Mobile Menu Button */}
             <button
@@ -171,10 +117,13 @@ export function Navbar({ isDark, setIsDark }) {
             isDark ? 'border-t border-slate-800' : 'border-t border-slate-200'
           }`}>
             <div className="space-y-1">
-              {['Home', 'Features', 'Resources', 'Pricing'].map((item) => (
+              {[
+                { label: 'Home', href: '/' },
+                { label: 'About Developer', href: '/about' },
+              ].map((item) => (
                 <a
-                  key={item}
-                  href="#"
+                  key={item.label}
+                  href={item.href}
                   className={`block px-4 py-3 sm:py-4 rounded-xl text-sm sm:text-base font-semibold transition-all duration-300 ${
                     isDark
                       ? 'text-slate-300 hover:text-white hover:bg-slate-800/50'
@@ -182,7 +131,7 @@ export function Navbar({ isDark, setIsDark }) {
                   }`}
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  {item}
+                  {item.label}
                 </a>
               ))}
             </div>
