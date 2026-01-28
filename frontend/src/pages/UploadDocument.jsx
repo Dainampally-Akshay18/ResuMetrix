@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Upload, CheckCircle, AlertCircle, FileText, ArrowRight, Sparkles, Cloud, Shield } from 'lucide-react';
+import { Upload, CheckCircle, AlertCircle, FileText, ArrowRight, Sparkles } from 'lucide-react';
 import { useResumeStore } from '../store';
 
 export function UploadDocument({ isDark, onUploadSuccess }) {
@@ -51,280 +51,182 @@ export function UploadDocument({ isDark, onUploadSuccess }) {
   };
 
   return (
-    <div className={`min-h-screen relative overflow-hidden transition-colors duration-500 ${
+    <div className={`min-h-screen transition-colors duration-300 ${
       isDark 
-        ? 'bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900' 
-        : 'bg-gradient-to-br from-indigo-50 via-white to-purple-50'
+        ? 'bg-gradient-to-b from-gray-900 to-gray-800' 
+        : 'bg-gradient-to-b from-blue-50 to-purple-50'
     }`}>
-      
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className={`absolute w-[800px] h-[800px] rounded-full blur-3xl opacity-20 animate-float ${
-          isDark ? 'bg-indigo-900/30' : 'bg-indigo-200/50'
-        } -top-40 -left-40`} />
-        <div className={`absolute w-[600px] h-[600px] rounded-full blur-3xl opacity-20 animate-float ${
-          isDark ? 'bg-purple-900/30' : 'bg-purple-200/50'
-        } -bottom-40 -right-40`} style={{ animationDelay: '1s' }} />
-        <div className={`absolute w-[400px] h-[400px] rounded-full blur-3xl opacity-10 animate-float ${
-          isDark ? 'bg-pink-900/20' : 'bg-pink-100/30'
-        } top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2`} style={{ animationDelay: '2s' }} />
-      </div>
-
-      {/* Content */}
-      <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24">
+      <div className="w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24">
         
-        {/* Header Section */}
-        <div className="text-center mb-16 md:mb-20">
-          <div className={`inline-flex items-center space-x-2 mb-6 px-4 py-2.5 rounded-full glass-effect transition-all duration-300 ${
-            isDark ? 'glass-effect-dark' : 'glass-effect-light'
+        {/* Header */}
+        <div className="text-center mb-6 sm:mb-8 md:mb-12 lg:mb-16">
+          <div className={`inline-flex items-center gap-2 mb-3 sm:mb-4 px-3 sm:px-4 py-2 rounded-full border text-xs sm:text-sm font-medium ${
+            isDark
+              ? 'bg-gray-800/50 border-gray-700 text-gray-300'
+              : 'bg-white/80 border-blue-200 text-gray-700'
           }`}>
-            <Sparkles size={18} className="text-indigo-600 dark:text-indigo-400" />
-            <span className="text-sm font-semibold text-gradient-primary">
-              AI-Powered Analysis
-            </span>
+            <Sparkles size={16} />
+            <span>AI-Powered Analysis</span>
           </div>
 
-          <h1 className={`text-5xl md:text-7xl font-black mb-6 transition-colors duration-300 animate-fade-in ${
-            isDark ? 'text-white' : 'text-slate-900'
+          <h1 className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-3 sm:mb-4 md:mb-5 leading-tight ${
+            isDark ? 'text-white' : 'text-gray-900'
           }`}>
             Optimize Your
-            <span className="block text-gradient-primary mt-2 animate-gradient">
+            <span className="block bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
               Resume Today
             </span>
           </h1>
 
-          <p className={`text-xl md:text-2xl mb-8 max-w-2xl mx-auto leading-relaxed ${
-            isDark ? 'text-slate-400' : 'text-slate-600'
+          <p className={`text-sm sm:text-base md:text-lg lg:text-xl mb-4 sm:mb-5 md:mb-6 max-w-2xl mx-auto leading-relaxed ${
+            isDark ? 'text-gray-400' : 'text-gray-700'
           }`}>
-            Get your ATS score, AI-powered insights, and actionable feedback to land your dream job
+            Get your ATS score, AI-powered insights, and actionable feedback
           </p>
 
-          {/* Feature Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto mb-12">
-            {[
-              { icon: Sparkles, title: 'Fast', desc: 'Instant analysis in seconds' },
-              { icon: Shield, title: 'Accurate', desc: '95% precision matching' },
-              { icon: Cloud, title: 'Secure', desc: 'End-to-end encryption' }
-            ].map((feature, idx) => (
-              <div key={idx} className={`p-6 rounded-2xl glass-effect transition-all duration-300 hover:scale-105 ${
-                isDark ? 'glass-effect-dark' : 'glass-effect-light'
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
+            {['✓ Fast', '✓ Accurate', '✓ AI-Powered'].map((feature, idx) => (
+              <div key={idx} className={`px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium ${
+                isDark
+                  ? 'bg-gray-800 text-gray-300'
+                  : 'bg-white text-gray-700'
               }`}>
-                <div className={`inline-flex items-center justify-center w-12 h-12 rounded-xl mb-4 ${
-                  isDark 
-                    ? 'bg-gradient-to-br from-indigo-500/20 to-purple-600/20' 
-                    : 'bg-gradient-to-br from-indigo-100 to-purple-100'
-                }`}>
-                  <feature.icon size={24} className="text-indigo-600 dark:text-indigo-400" />
-                </div>
-                <h3 className={`text-lg font-bold mb-2 ${
-                  isDark ? 'text-white' : 'text-slate-900'
-                }`}>
-                  {feature.title}
-                </h3>
-                <p className={`text-sm ${
-                  isDark ? 'text-slate-400' : 'text-slate-600'
-                }`}>
-                  {feature.desc}
-                </p>
+                {feature}
               </div>
             ))}
           </div>
         </div>
 
-        {/* Main Upload Card */}
+        {/* Upload Card */}
         <div
           onDragEnter={handleDrag}
           onDragLeave={handleDrag}
           onDragOver={handleDrag}
           onDrop={handleDrop}
-          className={`relative rounded-3xl p-8 md:p-12 glass-effect transition-all duration-500 border-2 ${
+          className={`relative rounded-2xl p-6 sm:p-8 md:p-10 lg:p-12 transition-all duration-300 border-2 ${
             dragActive
               ? isDark
-                ? 'border-indigo-500 shadow-2xl shadow-indigo-500/30'
-                : 'border-indigo-500 shadow-2xl shadow-indigo-400/30'
+                ? 'border-blue-500 bg-blue-900/20'
+                : 'border-blue-500 bg-blue-50'
               : isDark
-              ? 'border-slate-800/50 hover:border-indigo-500/50 hover:shadow-2xl hover:shadow-indigo-500/20'
-              : 'border-white/50 hover:border-indigo-300 hover:shadow-2xl hover:shadow-indigo-300/20'
+              ? 'border-gray-700 bg-gray-800/50'
+              : 'border-gray-300 bg-white/80'
           }`}
         >
           
-          {/* Upload Header */}
-          <div className="text-center mb-8">
-            <div className={`inline-flex items-center justify-center w-24 h-24 rounded-3xl mb-6 relative ${
-              isDark
-                ? 'bg-gradient-to-br from-indigo-500/20 to-purple-600/20'
-                : 'bg-gradient-to-br from-indigo-100 to-purple-100'
-            }`}>
-              <div className={`absolute inset-0 rounded-3xl ${
-                isDark
-                  ? 'bg-gradient-to-br from-indigo-500/30 to-purple-600/30'
-                  : 'bg-gradient-to-br from-indigo-300/30 to-purple-300/30'
-              } animate-pulse-ring`} />
-              <Upload size={48} className="relative z-10 text-indigo-600 dark:text-indigo-400" />
+          <div className="text-center">
+            <div className={`inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-2xl mb-3 sm:mb-4 md:mb-5 lg:mb-6 bg-gradient-to-br from-blue-500 to-purple-600`}>
+              <Upload size={28} className="sm:w-8 sm:h-8 md:w-9 md:h-9 lg:w-10 lg:h-10 text-white" />
             </div>
-            
-            <h2 className={`text-3xl md:text-4xl font-bold mb-4 ${
-              isDark ? 'text-white' : 'text-slate-900'
-            }`}>
-              {dragActive ? '🎯 Drop to analyze!' : 'Upload Your Resume'}
+
+            <h2 className={`text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold mb-2 ${isDark ? 'text-white' : 'text-gray-900'}`}>
+              Upload Your Resume
             </h2>
-            <p className={`text-lg mb-6 ${
-              isDark ? 'text-slate-400' : 'text-slate-600'
-            }`}>
-              {dragActive ? 'Release to upload instantly' : 'Drag & drop or click to browse'}
+            <p className={`mb-4 sm:mb-5 md:mb-6 text-xs sm:text-sm md:text-base ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+              Drag and drop or click to browse
             </p>
-          </div>
 
-          {/* File Input */}
-          <label className="block cursor-pointer">
-            <input
-              type="file"
-              accept=".pdf,.docx"
-              onChange={handleChange}
-              className="hidden"
-              disabled={isLoading}
-            />
-            <div className={`relative px-8 py-4 rounded-xl font-semibold transition-all duration-300 text-center group focus-ring ${
-              isDark
-                ? 'bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white shadow-xl shadow-indigo-500/25'
-                : 'bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white shadow-xl shadow-indigo-500/25'
-            } ${isLoading ? 'opacity-70 cursor-not-allowed' : 'hover:scale-105 active:scale-95'}`}>
-              {isLoading ? (
-                <span className="flex items-center justify-center space-x-3">
-                  <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent" />
-                  <span>Processing your resume...</span>
-                </span>
-              ) : (
-                <span className="flex items-center justify-center space-x-3">
-                  <FileText size={22} />
-                  <span>Choose Resume</span>
-                  <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-                </span>
-              )}
-            </div>
-          </label>
+            <label className="block cursor-pointer">
+              <input
+                type="file"
+                accept=".pdf,.docx"
+                onChange={handleChange}
+                className="hidden"
+                disabled={isLoading}
+                aria-label="Upload resume file"
+              />
+              <div className={`px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 rounded-xl font-semibold text-center text-white transition-all text-xs sm:text-sm md:text-base ${
+                isLoading 
+                  ? 'opacity-70 cursor-not-allowed' 
+                  : 'hover:shadow-lg'
+              } bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700`}>
+                {isLoading ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <div className="animate-spin">⚙️</div>
+                    <span>Processing...</span>
+                  </span>
+                ) : (
+                  <span className="flex items-center justify-center gap-2">
+                    <FileText size={18} />
+                    <span>Choose Resume</span>
+                  </span>
+                )}
+              </div>
+            </label>
 
-          {/* File Info */}
-          <div className="flex flex-wrap justify-center gap-4 mt-6">
-            <p className={`text-sm px-3 py-1.5 rounded-full ${
-              isDark ? 'bg-slate-800/50 text-slate-400' : 'bg-white/50 text-slate-600'
-            }`}>
-              📄 PDF & DOCX
-            </p>
-            <p className={`text-sm px-3 py-1.5 rounded-full ${
-              isDark ? 'bg-slate-800/50 text-slate-400' : 'bg-white/50 text-slate-600'
-            }`}>
-              ⚡ Instant Processing
-            </p>
-            <p className={`text-sm px-3 py-1.5 rounded-full ${
-              isDark ? 'bg-slate-800/50 text-slate-400' : 'bg-white/50 text-slate-600'
-            }`}>
-              🔒 Secure & Private
+            <p className={`text-xs mt-3 sm:mt-4 ${isDark ? 'text-gray-500' : 'text-gray-500'}`}>
+              Supported: PDF, DOCX • Max 10MB • Instant processing
             </p>
           </div>
         </div>
 
-        {/* Selected File Info */}
+        {/* Selected File */}
         {selectedFile && (
-          <div className={`mt-8 p-6 rounded-2xl glass-effect border animate-fade-in transition-all duration-300 ${
-            isDark ? 'glass-effect-dark' : 'glass-effect-light'
+          <div className={`mt-4 sm:mt-6 md:mt-8 p-4 sm:p-5 md:p-6 rounded-xl border transition-all ${
+            isDark
+              ? 'bg-gray-800/50 border-gray-700'
+              : 'bg-white/80 border-gray-300'
           }`}>
-            <div className="flex items-center space-x-4">
-              <div className={`p-3 rounded-xl ${
-                isDark ? 'bg-slate-800/50' : 'bg-white/50'
-              }`}>
-                <FileText size={28} className="text-indigo-600 dark:text-indigo-400" />
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className={`p-2 sm:p-2.5 md:p-3 rounded-lg flex-shrink-0 ${isDark ? 'bg-gray-700' : 'bg-gray-100'}`}>
+                <FileText size={20} className={isDark ? 'text-blue-400' : 'text-blue-600'} />
               </div>
-              <div className="flex-1">
-                <p className={`font-semibold text-lg mb-1 ${
-                  isDark ? 'text-white' : 'text-slate-900'
-                }`}>
+              <div className="min-w-0">
+                <p className={`font-semibold truncate text-xs sm:text-sm md:text-base ${isDark ? 'text-white' : 'text-gray-900'}`}>
                   {selectedFile.name}
                 </p>
-                <p className={`text-sm ${
-                  isDark ? 'text-slate-400' : 'text-slate-600'
-                }`}>
-                  {(selectedFile.size / 1024).toFixed(2)} KB • Ready for analysis
+                <p className={`text-xs sm:text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                  {(selectedFile.size / 1024).toFixed(2)} KB
                 </p>
               </div>
             </div>
           </div>
         )}
 
-        {/* Error Message */}
+        {/* Error */}
         {error && (
-          <div className={`mt-8 p-6 rounded-2xl glass-effect border-l-4 flex items-start space-x-4 animate-fade-in transition-all duration-300 ${
+          <div className={`mt-4 sm:mt-6 md:mt-8 p-3 sm:p-4 md:p-5 lg:p-6 rounded-xl border-l-4 flex items-start gap-3 sm:gap-4 ${
             isDark
-              ? 'bg-red-900/20 border-red-500'
-              : 'bg-red-50/80 border-red-400'
+              ? 'bg-red-900/20 border-l-red-500 border border-red-700'
+              : 'bg-red-50 border-l-red-500 border border-red-200'
           }`}>
-            <AlertCircle size={28} className="text-red-500 dark:text-red-400 flex-shrink-0 mt-1" />
+            <AlertCircle size={20} className="flex-shrink-0 mt-0.5" />
             <div>
-              <p className={`font-bold text-lg mb-1 ${
-                isDark ? 'text-red-400' : 'text-red-700'
-              }`}>
-                Upload Error
+              <p className={`font-semibold text-xs sm:text-sm md:text-base ${isDark ? 'text-red-400' : 'text-red-800'}`}>
+                Error
               </p>
-              <p className={isDark ? 'text-red-300' : 'text-red-600'}>
+              <p className={`text-xs sm:text-sm ${isDark ? 'text-red-300' : 'text-red-700'}`}>
                 {error}
               </p>
             </div>
           </div>
         )}
 
-        {/* Success Message */}
+        {/* Success */}
         {resume && !error && (
-          <div className={`mt-8 p-8 rounded-2xl glass-effect border-l-4 animate-fade-in transition-all duration-300 ${
+          <div className={`mt-6 sm:mt-8 p-4 sm:p-6 rounded-xl border-l-4 flex items-start space-x-3 sm:space-x-4 ${
             isDark
-              ? 'bg-emerald-900/20 border-emerald-500'
-              : 'bg-emerald-50/80 border-emerald-400'
+              ? 'bg-green-900/20 border-l-green-500 border border-green-700'
+              : 'bg-green-50 border-l-green-500 border border-green-200'
           }`}>
-            <div className="flex items-start space-x-4">
-              <CheckCircle size={32} className="text-emerald-500 dark:text-emerald-400 flex-shrink-0" />
-              <div className="flex-1">
-                <p className={`font-bold text-xl mb-2 ${
-                  isDark ? 'text-emerald-400' : 'text-emerald-700'
-                }`}>
-                  ✓ Resume uploaded successfully!
-                </p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                  <div className={`p-4 rounded-xl ${
-                    isDark ? 'bg-emerald-900/30' : 'bg-emerald-100/50'
-                  }`}>
-                    <p className={`text-sm font-medium mb-1 ${
-                      isDark ? 'text-emerald-300' : 'text-emerald-700'
-                    }`}>
-                      Document Name
-                    </p>
-                    <p className={isDark ? 'text-white' : 'text-slate-900'}>
-                      {resume.name}
-                    </p>
-                  </div>
-                  <div className={`p-4 rounded-xl ${
-                    isDark ? 'bg-emerald-900/30' : 'bg-emerald-100/50'
-                  }`}>
-                    <p className={`text-sm font-medium mb-1 ${
-                      isDark ? 'text-emerald-300' : 'text-emerald-700'
-                    }`}>
-                      Skills Detected
-                    </p>
-                    <p className="text-gradient-success font-bold">
-                      {resume.skills?.length || 0} skills found
-                    </p>
-                  </div>
-                </div>
-                <button
-                  onClick={() => onUploadSuccess()}
-                  className={`px-8 py-3 rounded-xl font-semibold inline-flex items-center space-x-3 transition-all duration-300 hover:scale-105 active:scale-95 focus-ring ${
-                    isDark
-                      ? 'bg-gradient-to-r from-emerald-600 to-teal-600 hover:shadow-xl hover:shadow-emerald-500/25 text-white'
-                      : 'bg-gradient-to-r from-emerald-600 to-teal-600 hover:shadow-xl hover:shadow-emerald-400/25 text-white'
-                  }`}
-                >
-                  <span>View Detailed Analysis</span>
-                  <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-                </button>
-              </div>
+            <CheckCircle size={20} className="flex-shrink-0 mt-0.5" />
+            <div className="flex-1 min-w-0">
+              <p className={`font-semibold text-sm sm:text-base ${isDark ? 'text-green-400' : 'text-green-800'}`}>
+                ✓ Resume uploaded successfully!
+              </p>
+              <p className={`text-xs sm:text-sm mt-1 ${isDark ? 'text-green-300' : 'text-green-700'}`}>
+                Name: {resume.name}
+              </p>
+              <p className={`text-xs sm:text-sm ${isDark ? 'text-green-300' : 'text-green-700'}`}>
+                Skills: {resume.skills?.length || 0}
+              </p>
+              <button
+                onClick={() => onUploadSuccess()}
+                className={`mt-4 px-6 py-2 rounded-lg font-medium inline-flex items-center space-x-2 bg-green-600 hover:bg-green-700 text-white transition-all text-sm sm:text-base`}
+              >
+                <span>View Analysis</span>
+                <ArrowRight size={16} />
+              </button>
             </div>
           </div>
         )}
